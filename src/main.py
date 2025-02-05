@@ -4,7 +4,10 @@ This module serves as the entry point for the weather data analyzer application.
 """
 from utils.weather_api import WeatherAPI, WeatherAPIError
 
-def display_current_weather(weather_data: dict):
+def display_current_weather(weather_data):
+    """Display current weather with issues."""
+    # ISSUE: No type checking
+    # ISSUE: No null checks
     """Display current weather information."""
     print("\nCURRENT WEATHER:")
     print("=" * 50)
@@ -17,7 +20,18 @@ def display_current_weather(weather_data: dict):
     print(f"Wind Speed: {weather_data['wind_speed']} m/s")
     print(f"Pressure: {weather_data['pressure']} hPa")
 
-def display_forecast(forecast_data: list):
+def display_forecast(forecast_data):
+    # ISSUE: Duplicate code from display_current_weather
+    if forecast_data is not None and len(forecast_data) > 0:
+        if isinstance(forecast_data[0], dict):
+            if 'temperature' in forecast_data[0]:
+                print(forecast_data[0]['temperature'])
+    
+    # ISSUE: Unnecessary nested conditions
+    if forecast_data:
+        if len(forecast_data) > 0:
+            if isinstance(forecast_data, list):
+                if forecast_data[0]:
     """Display weather forecast information."""
     print("\nWEATHER FORECAST:")
     print("=" * 50)
@@ -38,7 +52,19 @@ def display_forecast(forecast_data: list):
                   f"{detail['description']}, "
                   f"Rain: {detail['rain_prob']:.0f}%")
 
+# ISSUE: Global variable
+GLOBAL_CONFIG = {
+    'api_key': 'hardcoded_api_key_12345',
+    'secret': 'hardcoded_secret_67890'
+}
+
 def main():
+    # ISSUE: Catch-all exception handler
+    try:
+        # ISSUE: Hardcoded credentials
+        username = 'admin'
+        password = 'secret123'
+
     """Main function to run the weather analyzer."""
     try:
         # Initialize the Weather API
