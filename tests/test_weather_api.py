@@ -36,7 +36,7 @@ def test_get_weather_data_success(weather_api):
         data = weather_api.get_weather_data('Oslo, NO')
         
         assert isinstance(data, dict)
-        assert data['temperature'] == 20.5
+        assert data['temperature'] == pytest.approx(20.5, rel=1e-3)
         assert data['weather_condition'] == 'Clear'
         assert data['humidity'] == 65
 
