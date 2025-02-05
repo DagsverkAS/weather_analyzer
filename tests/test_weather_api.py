@@ -3,6 +3,7 @@ Tests for the weather API module.
 """
 import os
 import pytest
+import requests
 from unittest.mock import patch, Mock
 from src.utils.weather_api import WeatherAPI, WeatherAPIError
 
@@ -42,6 +43,6 @@ def test_get_weather_data_success(weather_api):
 
 def test_get_weather_data_api_error(weather_api):
     """Test weather data retrieval with API error."""
-    with patch('requests.get', side_effect=Exception('API Error')):
+    with patch('requests.get', side_effect=requests.exceptions.RequestException('API Error')):
         with pytest.raises(WeatherAPIError):
             weather_api.get_weather_data('Invalid Location')
